@@ -1,0 +1,6 @@
+<Recipe name="#Sub-Recipe">
+	<About>
+		<description>This is a sub-recipe. It will be hidden in the Recipes tab, and if you need to display it, type "#" in the search box.
+Usually, sub-recipe is not called as a main task.</description> 
+	</About> 
+</Recipe> 

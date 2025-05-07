@@ -1,0 +1,83 @@
+<Recipe name="Views">
+  <Choice name="View Types" mode="table">
+    <Task name="HTML">
+      <Frame frameId="HTML" reuse="true" type="HTMLPanel" /> 
+      <Out frameId="HTML" level="debug">$file{data\example.html}</Out> 
+    </Task> 
+    <Task name="Text">
+      <Frame frameId="Text" reuse="true" type="TextPanel" /> 
+      <Out frameId="Text" level="debug">$file{data\example.txt}</Out> 
+    </Task> 
+    <Task name="XY">
+      <Frame frameId="XY" reuse="true" type="XYLineChart" title="XY" xAxisLabel="X Label" yAxisLabel="Y Label" /> 
+      <Loop name="i" numbers="10">
+        <Rnd name="orders_count" symbols="3" type="number" /> 
+        <Out frameId="XY" series="series" x="$var{i}" level="debug">$var{orders_count}</Out> 
+      </Loop> 
+    </Task> 
+    <Task name="BarChart">
+      <Frame type="BarChart" reuse="true" frameId="fr" title="BarChart" xAxisLabel="Date" yAxisLabel="Orders" /> 
+      <Loop name="i" numbers="10">
+        <Rnd name="orders_count" symbols="3" type="number" /> 
+        <Out frameId="fr" row="FC Orders" column="$var{i}" level="debug">$var{orders_count}</Out> 
+      </Loop> 
+    </Task> 
+    <Task name="Pie">
+      <Frame frameId="Pie" reuse="true" type="PieChart" title="Pie" /> 
+      <Loop name="i" numbers="4">
+        <Rnd name="orders_count" symbols="3" type="number" /> 
+        <Out frameId="Pie" key="$var{i}" level="debug">$var{orders_count}</Out> 
+      </Loop> 
+    </Task> 
+    <Task name="Dial">
+      <Frame
+      frameId="Dial"
+      type="DialScale"
+      label="Label"
+      lower="0"
+      reuse="true"
+      upper="100"
+      increment="10"
+      count="10" /> 
+      <Loop name="i" numbers="100">
+        <Inc name="i" /> 
+        <Out frameId="Dial" level="debug">$var{i}</Out> 
+        <Wait delay="10" /> 
+      </Loop> 
+    </Task> 
+    <Task name="Plantuml">
+      <Frame frameId="Plantuml" reuse="true" type="PlantumlPanel" /> 
+      <Out frameId="Plantuml" level="debug">@startuml
+package "Some Group" {
+  HTTP - [First Component]
+  [Another Component]
+}
+
+node "Other Groups" {
+  FTP - [Second Component]
+  [First Component] --&gt; FTP
+}
+
+cloud {
+  [Example 1]
+}
+
+
+database "MySql" {
+  folder "This is my folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Frame 4]
+  }
+}
+
+
+[Another Component] --&gt; [Example 1]
+[Example 1] --&gt; [Folder 3]
+[Folder 3] --&gt; [Frame 4]
+@enduml</Out> 
+      <Out>END</Out> 
+    </Task> 
+  </Choice> 
+</Recipe> 

@@ -1,0 +1,7 @@
+<Recipe name="CheckValue">
+  <Var name="x" value="a" /> 
+  <Wait delay="4000" /> 
+  <CheckValue actual="$var{x}" expected="a1" onErrorMsg="The expected value for variable x is 'a1' but actual one it is '$var{x}'." /> 
+  <CheckNotNull name="y" onErrorMsg="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa." /> 
+  <CheckValue actual="b" expected="a" onErrorMsg="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa." /> 
+</Recipe> 

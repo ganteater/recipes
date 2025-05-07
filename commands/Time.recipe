@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Time">
+	<Time name="duration" action="duration">
+		<Wait delay="1000" /> 
+	</Time> 
+	<Out name="duration" /> 
+</Recipe> 

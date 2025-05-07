@@ -1,0 +1,19 @@
+<Recipe name="IterationRules">
+  <Var name="rules">#
+[single]
+F $file=data/array.data
+[multiple]
+X $enum=2;3
+Y $enum=2;3
+Z $enum=2;3
+Q $enum=1;2;3 
+[single]
+S=1
+R $inc=0;10
+#</Var> 
+  <Var name="result">X Y Z Q S R F$var{\n}</Var> 
+  <IterationRules name="rules">
+    <Append name="result">$var{X} $var{Y} $var{Z} $var{Q} $var{S} $var{R} $var{F}$var{\n}</Append> 
+  </IterationRules> 
+  <Out name="result" /> 
+</Recipe> 

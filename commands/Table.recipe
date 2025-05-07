@@ -1,0 +1,10 @@
+<Recipe name="Table">
+  <Table name="The table of variables">
+    <var name="a" value="1" /> 
+    <var name="b" default="2" /> 
+    <var name="c" default="3" /> 
+    <var name="d" default="4" /> 
+    <var name="e" value="5" /> 
+    <var name="f" /> 
+  </Table> 
+</Recipe> 

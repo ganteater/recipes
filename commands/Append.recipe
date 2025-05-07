@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Append">
+	<Var name="x" value="" /> 
+	<Append name="x" value="1" /> 
+	<Append name="x" value="2" /> 
+	<Append name="x" value="3" /> 
+	<Append name="x" value="3" /> 
+	<Out name="x" /> 
+	<Remove name="x" /> 
+	<Var name="x" type="array" /> 
+	<Append name="x" value="1" /> 
+	<Append name="x" value="2" /> 
+	<Append name="x" value="3" /> 
+	<Append name="x" value="3" /> 
+	<Out name="x" /> 
+	<Remove name="x" /> 
+	<Var name="x" type="array" /> 
+	<Append name="x" value="1" type="unique" /> 
+	<Append name="x" value="2" type="unique" /> 
+	<Append name="x" value="3" type="unique" /> 
+	<Append name="x" value="3" type="unique" /> 
+	<Out name="x" /> 
+	<Remove name="x" /> 
+	<Append name="x">...</Append> 
+	<Out name="x" /> 
+</Recipe> 

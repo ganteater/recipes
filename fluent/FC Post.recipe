@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="FC Post">
+	<Var name="FC Client Id" init="mandatory" /> 
+	<Var name="url" init="mandatory" /> 
+	<Var name="body" init="mandatory" type="text" /> 
+	<If isNull="!fc_access_token">
+		<Task name="FC Authorization Token" /> 
+	</If> 
+	<Remove name="response" /> 
+	<Replace name="body" oldChar="$var{\r}" newChar="" /> 
+	<Replace name="body" oldChar="$var{\n}" newChar=" " /> 
+	<Out name="body" type="~json" level="debug" /> 
+	<Remove name="errorStatus" /> 
+	<Loop name="count" numbers="2">
+		<Post name="response" url="$var{url}" auth="Bearer $var{!fc_access_token}" body="$var{body}" /> 
+		<Out name="response" type="json" level="debug" /> 
+		<Remove name="errorStatus" /> 
+		<If isNotNull="response::errors">
+			<Var name="errors" source="response::errors" /> 
+			<Loop name="error" source="errors" numbers="1">
+				<If name="error::code" equals="401">
+					<Var name="errorStatus" source="response" /> 
+				</If> 
+			</Loop> 
+		</If> 
+		<If expression="$var{count} &lt; 1">
+			<If isNull="errorStatus">
+				<Else>
+					<Task name="FC Authorization Token" /> 
+				</Else> 
+				<Break /> 
+			</If> 
+		</If> 
+	</Loop> 
+	<CheckValue actual="$var{errorStatus}" expected="$var{NULL}" onErrorMsg="Post to FC failed." /> 
+	<Var name="errors" source="response::errors" type="string" /> 
+</Recipe> 

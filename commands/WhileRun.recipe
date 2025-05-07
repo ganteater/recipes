@@ -1,0 +1,13 @@
+<Recipe name="WhileRun">
+  <Wait delay="1000" /> 
+  <WhileRun name="WHILE WE WAITE!" message="This message is displayed while internal commands are executing.">
+    <Wait delay="5000" /> 
+  </WhileRun> 
+  <Var name="WHILE WE WAITE!" description="Should the WhileRun message be displayed?" init="console">
+    <item>Yes</item> 
+    <item>No</item> 
+  </Var> 
+  <WhileRun name="WHILE WE WAITE!" message="This message is displayed while internal commands are executing.">
+    <Wait delay="5000" /> 
+  </WhileRun> 
+</Recipe> 

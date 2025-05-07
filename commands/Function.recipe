@@ -1,0 +1,5 @@
+<Recipe name="Function">
+  <Var name="f_x">X Value</Var> 
+  <Out name="f_x" description="f_x in Function" /> 
+  <Var name="return" type="json">{a: "MY RESULT", b: "Y"}</Var> 
+</Recipe> 

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="FC GraphQL">
+	<Var name="url" init="mandatory" /> 
+	<Var name="query" init="mandatory" type="text" /> 
+	<Var name="body">{"query":"query {$var{query}}"}</Var> 
+	<Replace name="body" oldChar="$var{\r}" newChar="\r" /> 
+	<Replace name="body" oldChar="$var{\n}" newChar="\n" /> 
+	<Task name="FC Post" responseName="response" url="$var{url}" auth="!fc_access_token" body="$var{body}" /> 
+</Recipe> 

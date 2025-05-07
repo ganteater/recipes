@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Date">
+	<Date name="now" format="yyyy-MM-dd'T'HH:mm:ss'Z'" /> 
+	<Out name="now" /> 
+	<Date name="d" format="yyyy-MM-dd'T'HH:mm:ss'Z'" value="2023-10-27T00:00:00Z" /> 
+	<Out name="d" /> 
+	<Date name="d" format="yyyy-MM-dd'T'HH:mm:ss'Z'" shift="12h" /> 
+	<Out name="d" /> 
+	<Date name="d" value="2023-10-27T00:00:00Z" sformat="yyyy-MM-dd'T'HH:mm:ss'Z'" format="ms" /> 
+	<Out name="d" /> 
+</Recipe> 

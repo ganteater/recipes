@@ -1,0 +1,6 @@
+<Recipe name="Call">
+  <Var name="result" value="$call{Function}" /> 
+  <Out name="f_x" /> 
+  <Out>$call{Function}</Out> 
+  <Out name="result::a" /> 
+</Recipe> 

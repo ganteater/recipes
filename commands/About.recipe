@@ -1,0 +1,21 @@
+<Recipe name="About">
+  <About>
+    <description>"About" tag can be used for description the recipe. 
+Text from "description" tag will be show in Menu dialog "Selected" tab. 
+If you selected this recipe on Menu column "Recipes" tab in left panel.
+
+The description tag support markdown code and you can use hyperlinks for 
+web and recipe call. For example:
+
+- [Anteater Sorceforge Project](https://sourceforge.net/projects/anteater/)
+- ['About' Recipe](recipe:About)
+
+You can also add information about the recipe creator and attach the necessary links.
+
+*Note: This tag is processed only Desktop UI application version.*</description> 
+    <author name="Viktor Tovstyi" email="Viktor_Tovstyi@epam.com" /> 
+    <attach>
+      <file name="https://web.yammer.com/main/org/epam.com/groups/eyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiIxMTc1NjE0MjU5MjAifQ/all" /> 
+    </attach> 
+  </About> 
+</Recipe> 

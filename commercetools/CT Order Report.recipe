@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="CT Order Report">
+	<Var name="Order Number" init="mandatory" /> 
+	<Task name="Get CT Order" /> 
+	<Var name="created" source="ct_order::createdAt" /> 
+	<Out name="created" /> 
+	<Remove name="state" /> 
+	<Var name="state" source="ct_order::state::id" /> 
+	<Out name="state" /> 
+	<Remove name="Order workflow status" /> 
+	<If isNotNull="state">
+		<Var name="Order workflow status" source="state" /> 
+		<If name="state" equals="66de04fc-910a-4487-94ce-2e051b9d5e4d">
+			<Var name="Order workflow status" value="Booked" /> 
+		</If> 
+		<If name="state" equals="0d5775bb-e7da-404d-9c75-b9df83be00d6">
+			<Var name="Order workflow status" value="Shipped" /> 
+		</If> 
+		<If name="state" equals="aeaa2363-9826-41a6-8822-5d4c8947ee1c">
+			<Var name="Order workflow status" value="Delivered" /> 
+		</If> 
+		<If name="state" equals="e70cda0e-0b6c-43ac-8d41-5385cba54992">
+			<Var name="Order workflow status" value="Awaiting Courier" /> 
+		</If> 
+		<If name="state" equals="b39bd796-41c9-49d2-8746-712ff78c7d4d">
+			<Var name="Order workflow status" value="Cancelled" /> 
+		</If> 
+		<If name="state" equals="d26b6afd-87d2-4c42-abd0-bf2b57a565b1">
+			<Var name="Order workflow status" value="Pending Cancellation" /> 
+		</If> 
+		<If name="state" equals="b43787f7-0bb0-4004-b075-dcbe3fbd95e8">
+			<Var name="Order workflow status" value="Processing" /> 
+		</If> 
+	</If> 
+	<Out name="Order workflow status" /> 
+	<Var name="Payment status" source="ct_order::paymentState" /> 
+	<Out name="Payment status" /> 
+	<Var name="Cart Discounts" source="ct_order::directDiscounts" /> 
+	<Trim name="Cart Discounts" /> 
+	<Out name="Cart Discounts" /> 
+	<Var name="Cart Discounts" source="ct_order::directDiscounts" /> 
+	<Var name="OMS Order Id" source="ct_order::custom::fields::externalId" /> 
+	<Remove name="discountCodes" /> 
+	<Remove name="discountCodesJson" /> 
+	<Var name="discountCodes" type="array" /> 
+	<Var name="discountCodesJson" source="ct_order::custom::fields::discountCodes" type="json" /> 
+	<Loop name="discount" source="discountCodesJson">
+		<Var name="dCodes" source="ct_order::discountCodes" /> 
+		<FindObject name="exists" source="dCodes" withValue="$var{discount::id}" /> 
+		<If isNotNull="exists">
+			<Append name="discountCodes" value="$var{discount::code}" /> 
+		</If> 
+	</Loop> 
+	<Var name="directDiscounts" source="ct_order::directDiscounts" type="json" /> 
+	<Var name="Total Direct Discount" value="0" /> 
+	<Loop name="directDiscount" source="directDiscounts">
+		<Var name="directDiscount_centAmount" source="directDiscount::value::money::0::centAmount" /> 
+		<Var name="fractionDigits" source="directDiscount::value::money::0::fractionDigits" /> 
+		<Calculate name="Total Direct Discount" expressions="$var{Total Direct Discount} + $var{directDiscount_centAmount}" /> 
+	</Loop> 
+	<If name="fractionDigits" equals="2">
+		<Calculate name="Total Direct Discount" expressions="$var{Total Direct Discount}/100.0" /> 
+	</If> 
+	<Trim name="OMS Order Id" /> 
+	<Out name="OMS Order Id" /> 
+	<Var name="Virtual Store Number" source="ct_order::custom::fields::virtualStoreNumber" /> 
+	<Out name="Virtual Store Number" level="debug" /> 
+	<Var name="Shipping method name" source="ct_order::shippingInfo::shippingMethodName" /> 
+	<Out name="Shipping method name" /> 
+	<Trim name="Shipping method name" /> 
+	<Remove name="No Deliveries" /> 
+	<Var name="deliveries" source="ct_order::shippingInfo::deliveries" /> 
+	<Trim name="deliveries" /> 
+	<Out name="deliveries" type="json" /> 
+	<Remove name="payments" /> 
+	<Var name="payments" source="ct_order::paymentInfo::payments" /> 
+	<Out name="payments" type="json" /> 
+	<Remove name="CT Payment Transactions" /> 
+	<Var name="CT Payment Transactions" type="array" /> 
+	<Loop name="payment" source="payments">
+		<Var name="transactions" source="payment::obj::transactions" /> 
+		<Loop name="transaction" source="transactions">
+			<Out name="transaction" type="json" /> 
+			<Append name="CT Payment Transactions" value="$var{transaction}" /> 
+		</Loop> 
+	</Loop> 
+</Recipe> 

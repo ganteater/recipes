@@ -1,0 +1,16 @@
+<Recipe name="Exception">
+  <If isNotNull="null">
+    <Else>
+      <If isNull="null">
+        <Calculate name="x" expressions="0/0" /> 
+      </If> 
+    </Else> 
+  </If> 
+  <Out name="exception" /> 
+  <Calculate name="x" expressions="10/2" exception="exception" /> 
+  <Out name="exception" /> 
+  <Calculate name="x" expressions="0/0" exception="ignored" /> 
+  <Out name="ignored" level="debug" /> 
+  <Wait delay="4000" /> 
+  <Calculate name="x" expressions="0/0" /> 
+</Recipe> 

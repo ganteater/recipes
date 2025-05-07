@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="FC No Orders Daily Check">
+	<Var name="queue name" value="wcrc-integrations-commercetools-order-created-dlq" /> 
+	<Task name="SQS Size" level="debug" /> 
+	<If name="sqs_size" equals="0">
+		<Out>No messages in wcrc-integrations-commercetools-order-created-dlq.</Out> 
+		<Else>
+			<Out name="sqs_size" description="order-created-dlq_size" level="warn" /> 
+		</Else> 
+	</If> 
+	<Var name="Start Date" init="mandatory" /> 
+	<Date name="Now" format="yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'" /> 
+	<Var name="query">"and": [
+            {
+            "range": {
+                "field": "lastModifiedAt",
+                "gte": "$var{Start Date}T00:00:00.000Z",
+                "lte": "$var{Now}"
+                }
+            },
+            {
+                "not": [{
+                        "exists": {
+                            "field": "custom.externalId",
+                            "customType": "StringType"
+                        }
+                }]
+            },
+            {
+              "exists": {
+                            "field": "orderNumber"
+                        }
+            },
+            {
+                "not": [ {
+		                "exact": {
+		                    "field": "state.key",
+		                    "value": "order-cancelled"
+		                }
+                }]
+            }
+        ]</Var> 
+	<Out name="query" level="debug" /> 
+	<Task name="CT GraphQL" url="https://api.europe-west1.gcp.commercetools.com/$var{CT Account}/orders/search" level="debug" /> 
+	<Out name="hits" level="debug" /> 
+	<Remove name="Order Numbers" /> 
+	<Var name="Order Numbers" type="array" /> 
+	<Loop name="hit" source="hits">
+		<Var name="CT Order Id" source="hit::id" /> 
+		<Out name="CT Order Id" level="debug" /> 
+		<Task name="Get CT Order by ID" level="debug" /> 
+		<Append name="Order Numbers" source="ct_order::orderNumber" /> 
+	</Loop> 
+	<Out name="Order Numbers" description="FC No Orders" /> 
+</Recipe> 

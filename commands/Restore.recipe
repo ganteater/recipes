@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Restore">
+	<Var name="x" value="1" /> 
+	<Restore name="x">
+		<Var name="x" value="2" /> 
+		<Out name="x" /> 
+	</Restore> 
+	<Out name="x" level="warn" /> 
+	<Out>--------------------</Out> 
+	<Var name="x" value="1" /> 
+	<Var name="y" value="2" /> 
+	<Var name="z" value="3" /> 
+	<Var name="y" value="4" /> 
+	<Restore except="x">
+		<Var name="x" value="10" /> 
+		<Var name="y" value="20" /> 
+		<Var name="z" value="30" /> 
+		<Var name="y" value="40" /> 
+	</Restore> 
+	<Out name="x" level="warn" /> 
+	<Out name="y" level="warn" /> 
+	<Out name="z" level="warn" /> 
+	<Out name="y" level="warn" /> 
+	<Restore /> 
+	<Out name="x" level="warn" /> 
+	<Out name="y" level="warn" /> 
+	<Out name="z" level="warn" /> 
+	<Out name="y" level="warn" /> 
+</Recipe> 

@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Get FC Order by Id">
+	<Var name="FC Order Id" init="mandatory" /> 
+	<Var name="body">{"query":"query getOrderById($id: ID!, $includeCustomer: Boolean!, $includeAttributes: Boolean!, $includeFulfilmentChoice: Boolean!, $includeFulfilments: Boolean!, $includeOrderItems: Boolean!, 
+          $includeArticles: Boolean!, $includeConsignmentArticles: Boolean!, $includeFinancialTransactions: Boolean!, $fulfilmentItemCount: Int, $fulfilmentItemCursor: String) {
+   order: orderById(id: $id) {
+          id
+          ref
+          type
+          status
+          retailer {
+              id
+          }
+          createdOn
+          updatedOn
+          totalPrice
+          totalTaxPrice
+          attributes @include(if: $includeAttributes) {
+            name
+            value
+            type
+          }
+          financialTransactions @include(if: $includeFinancialTransactions) {
+            edges {
+              node {
+                id
+                ref
+                type
+                status
+                createdOn
+                updatedOn
+                total
+                currency
+                externalTransactionCode
+                externalTransactionId
+                cardType
+                paymentMethod
+                paymentProviderName
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+            }
+          }
+          items @include(if: $includeOrderItems) {
+            itemEdges: edges {
+              itemNode: node {
+                id
+                ref
+                quantity
+                paidPrice
+                currency
+                price
+                taxPrice
+                totalPrice
+                totalTaxPrice
+                status
+                product {
+                  ... on VariantProduct {
+                    ref
+                    name
+                    summary
+                    catalogue {
+                      ref
+                    }
+                  }
+                }
+                attributes {
+                  name
+                  type
+                  value
+                }
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+            }
+          }
+          fulfilments @include(if: $includeFulfilments) {
+            fulfilmentEdges: edges {
+              fulfilmentNode: node {
+                id
+                ref
+                type
+                status
+                type
+                createdOn
+                updatedOn
+                fromLocation {ref}
+                fromAddress {
+                  ref
+                  id
+                  name
+                }
+                toAddress {
+                  ref
+                  id
+                }
+                attributes {
+                  name
+                  type
+                  value
+                }
+                fulfilmentItems: items (first: $fulfilmentItemCount, after: $fulfilmentItemCursor){
+                  fulfilmentItemEdges: edges {
+                    fulfilmentItemNode: node {
+                      id
+                      ref
+                      status
+                      requestedQuantity
+                      filledQuantity
+                      rejectedQuantity
+                      orderItem {
+                        id
+                        ref
+                        status
+                        quantity
+                        paidPrice
+                        currency
+                        price
+                        taxPrice
+                        taxType
+                        totalPrice
+                        totalTaxPrice
+                        attributes {
+                          name
+                          type
+                          value
+                        }
+                        product {
+                          ... on VariantProduct {
+                            name
+                            ref
+                            gtin
+                            summary
+                            type
+                            prices {
+                              value
+                            }
+                            catalogue {
+                              id
+                              ref
+                            }
+                          }
+                        }
+                      }
+                    }
+                    cursor
+                  }
+                  pageInfo {
+                    hasNextPage
+                  }
+                }
+                articles @include(if: $includeArticles) {
+                  edges {
+                    node {
+                      id
+                      ref
+                      type
+                      status
+                      quantity
+                      carrierConsignmentArticles @include(if: $includeConsignmentArticles) {
+                        edges {
+                          node {
+                            carrierConsignment {
+                              id
+                              ref
+                              trackingLabel
+                              labelUrl
+                              orderSummaryUrl
+                              carrier {
+                                id
+                                name
+                                ref
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    cursor
+                  }
+                  pageInfo {
+                    hasNextPage
+                  }
+                }
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+            }
+          }
+          customer @include(if: $includeCustomer) {
+            ref
+            title
+            country
+            firstName
+            lastName
+            username
+            primaryEmail
+            primaryPhone
+          }
+          fulfilmentChoice @include(if: $includeFulfilmentChoice) {
+            id
+            createdOn
+            updatedOn
+            currency
+            deliveryInstruction
+            fulfilmentPrice
+            deliveryType
+            fulfilmentPrice
+            fulfilmentType
+            fulfilmentTaxPrice
+            pickupLocationRef
+            deliveryAddress {
+              id
+              type
+              companyName
+              name
+              street
+              city
+              state
+              postcode
+              region
+              country
+              region
+              ref
+              latitude
+              longitude
+            }
+          }
+        }
+    }",
+"variables": {
+  "id": "$var{FC Order Id}",
+  "includeCustomer": true,
+  "includeArticles": true,
+  "includeAttributes": true,
+  "includeFulfilments": true,
+  "includeFulfilmentChoice": true,
+  "includeConsignmentArticles": true,
+  "includeFinancialTransactions": true,
+  "includeOrderItems": true,
+  "fulfilmentItemCount": 15,
+  "fulfilmentItemCursor": ""
+}
+}</Var> 
+	<Task name="FC Post" url="https://$var{FC Client Id}.api.fluentretail.com/graphql" /> 
+	<Var name="fc_order" source="response::data::order" /> 
+	<Out name="fc_order" type="json" /> 
+</Recipe> 

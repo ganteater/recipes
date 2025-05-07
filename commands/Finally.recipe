@@ -1,0 +1,8 @@
+<Recipe name="Finally">
+  <Finally>
+    <Out>Recipe stoped.</Out> 
+  </Finally> 
+  <Out>Recipe started ...</Out> 
+  <Wait delay="1000" /> 
+  <CheckValue actual="1" expected="0" /> 
+</Recipe> 

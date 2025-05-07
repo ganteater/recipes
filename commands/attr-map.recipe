@@ -1,0 +1,18 @@
+<Recipe name="attr-map">
+  <Var name="Array" type="array">
+    <item>a</item> 
+    <item>b</item> 
+    <item>c</item> 
+  </Var> 
+  <Var name="a" value="Value a" /> 
+  <Var name="b" value="Value b" /> 
+  <Var name="c" value="Value c" /> 
+  <Var name="name" /> 
+  <Loop name="Item" source="Array">
+    <Var name="attrs" type="map">
+      <item key="name">$var{Item}</item> 
+    </Var> 
+    <Out name="attrs" /> 
+    <Out attr-map="attrs" /> 
+  </Loop> 
+</Recipe> 

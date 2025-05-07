@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Get FC Order ID">
+	<Var name="Order Number" init="mandatory" /> 
+	<Var name="body">{"query":"query {
+        orders (first:5000, ref:\"$var{Order Number}\")
+        {
+        edges{
+            node{
+                    id
+                    createdOn
+                    updatedOn
+                    status
+                    ref
+            }
+            cursor
+        }
+        pageInfo {
+            hasNextPage
+        }
+    }
+    }"}</Var> 
+	<Task name="FC Post" url="https://$var{FC Client Id}.api.fluentretail.com/graphql" /> 
+	<Var name="FC Order ID" source="response::data::orders::edges" /> 
+	<Trim name="FC Order ID" /> 
+	<If isNotNull="FC Order ID">
+		<Var name="FC Order ID" source="response::data::orders::edges::0::node::id" /> 
+	</If> 
+	<Out name="FC Order ID" /> 
+</Recipe> 

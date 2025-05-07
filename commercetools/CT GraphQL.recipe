@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="CT GraphQL">
+	<Var name="url" init="mandatory" value="https://api.europe-west1.gcp.commercetools.com/$var{CT Account}/orders/search" /> 
+	<Var name="query" init="mandatory" type="text" /> 
+	<Var name="batchSize" value="50" init="default" /> 
+	<Var name="offset" value="0" /> 
+	<Remove name="pageId" /> 
+	<Var name="body">{
+    "query": {
+        $var{query}
+    },
+    "limit": 0,
+    "offset": 0
+}</Var> 
+	<Out name="body" level="debug" type="json" /> 
+	<Remove name="errorStatus" /> 
+	<Loop name="count" numbers="2">
+		<Post name="response" url="$var{url}" auth="Bearer $var{!ct_access_token}" body="$var{body}" /> 
+		<Out name="response" type="json" level="debug" /> 
+		<Remove name="errorStatus" /> 
+		<If name="response" startsWith="{">
+			<Else>
+				<Var name="errorStatus" source="response" /> 
+			</Else> 
+		</If> 
+		<If expression="$var{count} &lt; 1">
+			<If isNull="errorStatus">
+				<Else>
+					<Task name="CT Authorization Token" /> 
+				</Else> 
+				<Break /> 
+			</If> 
+		</If> 
+	</Loop> 
+	<CheckValue actual="$var{errorStatus}" expected="$var{NULL}" onErrorMsg="Post to CT failed." /> 
+	<Out name="response" level="debug" type="json" /> 
+	<Var name="total" source="response::total" level="debug" /> 
+	<Calculate name="Page Numbers" expressions="ceil($var{total} / $var{batchSize}.0)" /> 
+	<Out name="Page Numbers" level="debug" /> 
+	<Var name="hits" type="array" /> 
+	<Loop name="page" numbers="$var{Page Numbers}">
+		<Calculate name="offset" expressions="$var{batchSize} * $var{page}" /> 
+		<Var name="body">{
+        "query": {
+         $var{query}
+    },
+    "limit": $var{batchSize},
+    "offset": $var{offset}
+}</Var> 
+		<Out name="body" level="debug" type="json" /> 
+		<Remove name="errorStatus" /> 
+		<Loop name="count" numbers="2">
+			<Post name="response" url="$var{url}" auth="Bearer $var{!ct_access_token}" body="$var{body}" /> 
+			<Out name="response" type="json" level="debug" /> 
+			<Remove name="errorStatus" /> 
+			<If name="response" equals="The supplied authentication is invalid">
+				<Var name="errorStatus" source="response" /> 
+			</If> 
+			<If expression="$var{count} &lt; 1">
+				<If isNull="errorStatus">
+					<Else>
+						<Task name="CT Authorization Token" /> 
+					</Else> 
+					<Break /> 
+				</If> 
+			</If> 
+		</Loop> 
+		<Out name="response" level="debug" /> 
+		<Append name="hits" source="response::hits" /> 
+	</Loop> 
+	<Out name="hits" /> 
+</Recipe> 

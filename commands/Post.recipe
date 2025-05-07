@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Post">
+	<Var name="request">{
+    "context": {
+        "client": {
+            "hl": "en",
+            "gl": "UA",
+            "clientName": 56,
+            "clientVersion": "1.20231015.00.00",
+            "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/118.0"
+        },
+        "thirdParty": {"embedUrl": "https://www.google.com/"}
+    },
+    "events": [
+    ],
+    "serializedClientEventId": {
+        "serializedEventId": "sEwxZY3GD8Kw0u8Pp9yBsAo",
+        "clientCounter": "11879"
+    }
+}</Var> 
+	<Out name="request" type="json" /> 
+	<Post name="response" url="https://www.youtube.com/youtubei/v1/log_event" /> 
+	<Out name="response" type="html" /> 
+</Recipe> 

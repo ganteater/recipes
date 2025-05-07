@@ -1,0 +1,17 @@
+<Recipe name="Calculate">
+  <About>
+    <description>The base implementation of the Calculate command uses [Java Expression Language (JEXL)](https://commons.apache.org/proper/commons-jexl/).
+You can use all the features of this engine, but it is strongly recommended to limit it to arithmetic expressions for future compatibility.</description> 
+    <attach>
+      <file name="https://commons.apache.org/proper/commons-jexl/reference/syntax.html" /> 
+    </attach> 
+  </About> 
+  <Var name="a" value="1.105" type="number" /> 
+  <Var name="b" value="1.1054" type="number" /> 
+  <Calculate name="x" expressions="($var{a} + $var{b})/2.212" /> 
+  <Out name="x" /> 
+  <Var name="my input number">10.0</Var> 
+  <!--Calculate tag doesn't support variables directly. You can map variables to "Calculate" tag context by attributes.--> 
+  <Calculate name="result" y="my input number">y/2.05</Calculate> 
+  <Out name="result" /> 
+</Recipe> 

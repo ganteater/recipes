@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="If">
+	<Var name="a" value="x" /> 
+	<If value="$var{a}" equals="x">
+		<Out name="a" /> 
+	</If> 
+	<Var name="x" init="console" value="10000300002" description="Please nput x value:" /> 
+	<If isNotNull="x">
+		<Else>
+			<Out>If#1 Else: $var{x}</Out> 
+		</Else> 
+		<Out>If#1 $var{x}</Out> 
+	</If> 
+	<If isNull="x">
+		<Else>
+			<Out>If#2 Else: $var{x}</Out> 
+		</Else> 
+		<Out>If#2 $var{x}</Out> 
+	</If> 
+	<If name="x" startsWith="1" endsWith="2" contains="3">
+		<Else>
+			<Out>If#3 Else: $var{x}</Out> 
+		</Else> 
+		<Out>If#3 $var{x}</Out> 
+	</If> 
+	<Var name="x">cf</Var> 
+	<If value="$var{x}" equals="a">
+		<Out name="x" /> 
+		<Else equals="b">
+			<Out>B</Out> 
+		</Else> 
+		<Else startsWith="c">
+			<Out>C</Out> 
+		</Else> 
+		<Else equals="d">
+			<Out>D</Out> 
+		</Else> 
+		<Else equals="e">
+			<Out>E</Out> 
+		</Else> 
+		<Else equals="f">
+			<Out>F</Out> 
+		</Else> 
+	</If> 
+</Recipe> 

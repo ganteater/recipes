@@ -1,0 +1,3 @@
+<Recipe name="Command">
+	<Command os="Windows*">explorer</Command> 
+</Recipe> 

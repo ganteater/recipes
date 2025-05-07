@@ -1,0 +1,45 @@
+<Recipe name="Log">
+  <Out type="txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Phasellus quis vulputate nunc, sed volutpat velit. Nullam scelerisque 
+porta dolor sit amet varius. Praesent a blandit tortor, quis egestas 
+quam. Nulla congue venenatis lectus at luctus. Aliquam aliquam consequat 
+nisi, pulvinar posuere ligula aliquet sed. Cras lobortis ultrices nunc ac 
+tempus. Aenean eu augue quis dolor lobortis semper. Aenean nisi quam, 
+sodales nec orci nec, rutrum sodales leo. Pellentesque at rhoncus velit, 
+sed venenatis tortor. Mauris convallis accumsan vulputate. Praesent auctor 
+eleifend lacus ac dignissim. Donec vitae semper felis. Maecenas volutpat eget 
+lectus vitae lacinia. Pellentesque elit orci, faucibus vitae sodales in, luctus 
+eu nibh. Nulla vel molestie augue. Phasellus vitae massa eget tortor pellentesque 
+convallis ut ut est.
+
+Ut pharetra et eros ut interdum. Donec nec nulla nec nisl porta malesuada nec ac 
+magna. Sed ut erat ac tellus laoreet consequat. Curabitur at dui a nisl aliquam 
+tristique a vel turpis. Sed tincidunt massa vel leo vestibulum, vel porta sem 
+euismod. Ut laoreet sed justo vel posuere. Integer consequat tincidunt quam in 
+pulvinar. Sed accumsan purus quis risus faucibus, vitae dictum justo tristique. 
+Aliquam eget felis congue, volutpat velit non, euismod lacus. Quisque suscipit 
+iaculis quam, vel volutpat justo luctus non. Aliquam consequat convallis faucibus. 
+Cras laoreet, enim a elementum cursus, augue arcu gravida felis, ut ornare nibh 
+nunc nec enim. In egestas egestas maximus. Phasellus bibendum id nisi sit amet 
+cursus. Proin quis tortor faucibus, mattis est eu, tempor tellus.</Out> 
+  <Out level="error">This is an error message.</Out> 
+  <Out type="xml">
+    <Recipe name="Confirm">
+      <Loop numbers="10">
+        <Out>Hello!</Out> 
+      </Loop> 
+      <Confirm message="Do you want to continue the recipe?" /> 
+      <Out>Confirmed</Out> 
+      <Var name="Array" type="array">
+        <item>11111</item> 
+        <item>22222</item> 
+        <item>33333</item> 
+        <item>44444</item> 
+        <item>55555</item> 
+      </Var> 
+      <Var name="Array" init="console" /> 
+    </Recipe> 
+  </Out> 
+  <Get name="lorem" url="https://loremipsum.io/generator/index.txt?n=5&t=p&_rsc=1l7jk" /> 
+  <Out name="lorem" level="warn" /> 
+</Recipe> 

@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="GDPR Log">
+	<Out>my-secret-email@gmail.com lorem ipsum my-secret-email@gmail.com</Out> 
+</Recipe> 

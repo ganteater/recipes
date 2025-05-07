@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Get CT Customer by ID">
+	<Var name="CT Customer Id" init="mandatory" /> 
+	<Var name="CT Account" init="mandatory" /> 
+	<Task name="CT Get" response="ct_customer" url="https://api.europe-west1.gcp.commercetools.com/$var{CT Account}/customers/$var{CT Customer Id}" level="debug" /> 
+	<Out name="ct_customer" type="json" /> 
+</Recipe> 

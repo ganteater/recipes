@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="FC Authorization Token">
+	<Var name="FC User Name" init="mandatory" /> 
+	<Var name="FC Client Id" init="mandatory" /> 
+	<Var name="FC Password" init="mandatory" type="password" /> 
+	<Var name="FC Client Secret" init="mandatory" type="password" /> 
+	<Post name="response" url="https://ssu.api.fluentretail.com/oauth/token?username=$var{FC User Name}&password=$var{FC Password}&client_id=$var{FC Client Id}&client_secret=$var{FC Client Secret}&scope=api&grant_type=password" body="" /> 
+	<Out name="response" level="debug" /> 
+	<Var name="response" source="response" type="json" /> 
+	<Var name="!fc_access_token" source="response::access_token" /> 
+	<Out name="!fc_access_token" level="debug" /> 
+</Recipe> 

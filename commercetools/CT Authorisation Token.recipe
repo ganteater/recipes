@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="CT Authorization Token">
+	<Extern class="Coder">
+		<Base64Encode name="ctBasicToken" value="$var{AK_Client_ID}:$var{AK_Secret}" />
+	</Extern>
+	<Var name="body">{
+    "grant_type": "password",
+    "username": "$var{username}",
+    "password": "$var{password}"
+}</Var>
+	<Post name="responce" url="$var{url}" auth="Basic $var{ctBasicToken}" body="$var{body}" />
+	<Out name="responce" level="debug" />
+	<Var name="!access_token" source="responce::access_token" />
+	<Var name="CT_AUTH" init="mandatory" />
+	<Post name="response" url="https://auth.europe-west1.gcp.commercetools.com/oauth/token?grant_type=client_credentials" auth="$var{CT_AUTH}" />
+	<Out name="response" level="debug" type="json" />
+	<Var name="response" source="response" />
+	<Var name="!ct_access_token" source="response::access_token" />
+	<Out name="!ct_access_token" level="debug" />
+</Recipe> 

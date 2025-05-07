@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="Get CT Order">
+	<Var name="Order Number" init="mandatory" /> 
+	<Var name="CT Account" init="mandatory" /> 
+	<Out name="Order Number" /> 
+	<Task name="CT Get" response="ct_order" url="https://api.europe-west1.gcp.commercetools.com/$var{CT Account}/orders/order-number=$var{Order Number}?expand=paymentInfo.payments[*]" /> 
+	<Var name="ct_order" type="json" source="ct_order" /> 
+	<Out name="ct_order" type="json" /> 
+</Recipe> 

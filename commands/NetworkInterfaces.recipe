@@ -1,0 +1,6 @@
+<Recipe name="NetworkInterfaces">
+  <NetworkInterfaces name="ipList" /> 
+  <Out name="ipList" /> 
+  <NetworkInterfaces name="google.com" host="google.com" /> 
+  <Out name="google.com" /> 
+</Recipe> 

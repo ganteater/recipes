@@ -1,0 +1,34 @@
+<Recipe name="Choice">
+  <Choice name="Call a task" mode="table" type="call-task">
+    <Task name="About" /> 
+    <Task name="Choice" /> 
+    <Task name="Append" /> 
+    <Task name="BarChart" /> 
+    <Task name="Calculate" /> 
+    <Task name="Exception" /> 
+    <Task name="CheckValue" /> 
+    <Task name="Undefined task" /> 
+  </Choice> 
+  <Choice name="My choice">
+    <Task name="The quick choice">
+      <Out>OK</Out> 
+    </Task> 
+    <Task name="The best choice">
+      <Out>Great!</Out> 
+    </Task> 
+    <Task name="It is not so good choice">
+      <Out>Oh well then...</Out> 
+    </Task> 
+  </Choice> 
+  <Var name="Call a task" type="array">
+    <item>BarChart</item> 
+  </Var> 
+  <Choice name="Call a task" mode="table" type="call-task">
+    <Task name="About" /> 
+    <Task name="Append" /> 
+    <Task name="BarChart" /> 
+    <Task name="Calculate" /> 
+    <Task name="CheckValue" /> 
+    <Task name="Undefined task" /> 
+  </Choice> 
+</Recipe> 

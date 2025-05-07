@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="FC Stuck Order Report">
+	<Var name="Report Date" init="mandatory" /> 
+	<If isNull="Order Statuses">
+		<Var name="Order Statuses" type="array" /> 
+		<Choice name="$var{Batch Process,Batch Process} - Status check" mode="table">
+			<Task name="Created">
+				<Append name="Order Statuses">Created</Append> 
+			</Task> 
+			<Task name="Pending_Payment">
+				<Append name="Order Statuses">Pending_Payment</Append> 
+			</Task> 
+			<Task name="Remorse">
+				<Append name="Order Statuses">Remorse</Append> 
+			</Task> 
+			<Task name="Pending_Refund">
+				<Append name="Order Statuses">Pending_Refund</Append> 
+			</Task> 
+			<Task name="REFUND_COMPLETE_ON_ERROR">
+				<Append name="Order Statuses">REFUND_COMPLETE_ON_ERROR</Append> 
+			</Task> 
+			<Task name="Booked">
+				<Append name="Order Statuses">Booked</Append> 
+			</Task> 
+			<Task name="Pending_Manual_Fraud_Check">
+				<Append name="Order Statuses">Pending_Manual_Fraud_Check</Append> 
+			</Task> 
+			<Task name="awaiting_courier">
+				<Append name="Order Statuses">awaiting_courier</Append> 
+			</Task> 
+		</Choice> 
+	</If> 
+	<Var name="status query" value="" /> 
+	<Loop name="status" source="Order Statuses">
+		<Append name="status query">,\"$var{status}\"</Append> 
+	</Loop> 
+	<Var name="status query" start="," /> 
+	<Trim name="status query" /> 
+	<Var name="query">orders (first:5000, after:\"\", status:[$var{status query}], updatedOn: {from: \"$var{Report Date}T00:00:00.000Z\", to: \"$var{Report Date}T23:59:59.999Z\"})
+    {
+       edges{
+           node{
+                id
+                createdOn
+                updatedOn
+                status
+                ref
+           }
+           cursor
+       }
+       pageInfo {
+           hasNextPage
+       }
+   }</Var> 
+	<Task name="FC GraphQL" url="https://$var{Fc Client Id}.api.fluentretail.com/graphql" /> 
+	<Out name="response" type="json" level="debug" /> 
+	<Var name="Stuck Orders Report" type="array" /> 
+	<Var name="Stuck Orders" type="array" /> 
+	<Loop name="order" source="response::data::orders::edges">
+		<Var name="Order Number" source="order::node::ref" /> 
+		<Var name="status" source="order::node::status" /> 
+		<Var name="createdOn" source="order::node::createdOn" /> 
+		<Append name="Stuck Orders Report" type="unique">$var{createdOn} $var{Order Number} - $var{status}</Append> 
+		<If name="status" equals="BOOKED">
+			<Task name="Get CT Order" /> 
+			<If name="ct_order::state::id" equals="66de04fc-910a-4487-94ce-2e051b9d5e4d">
+				<Else>
+					<Append name="Stuck Orders" value="$var{Order Number}" type="unique" /> 
+					<Out level="debug">$var{createdOn} $var{Order Number} - $var{status} (INCORRECT CT ORDER STATUS)</Out> 
+				</Else> 
+			</If> 
+		</If> 
+		<If name="status" equals="REMORSE">
+			<Append name="Stuck Orders" value="$var{Order Number}" type="unique" /> 
+		</If> 
+		<If name="status" equals="PENDING_PAYMENT">
+			<Append name="Stuck Orders" value="$var{Order Number}" type="unique" /> 
+		</If> 
+		<If name="status" equals="PENDING_REFUND">
+			<Append name="Stuck Orders" value="$var{Order Number}" type="unique" /> 
+		</If> 
+		<If name="status" equals="REFUND_COMPLETE_ON_ERROR">
+			<Append name="Stuck Orders" value="$var{Order Number}" type="unique" /> 
+		</If> 
+	</Loop> 
+	<Trim name="Stuck Orders Report" /> 
+	<Out name="Stuck Orders Report" /> 
+	<Trim name="Stuck Orders" /> 
+	<Out name="Stuck Orders" level="debug" /> 
+</Recipe> 

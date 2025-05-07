@@ -1,0 +1,16 @@
+<Recipe name="Loop">
+  <Var name="json array" type="json">[
+{"a":"av"},{"a":"bv"},{"a":"cv"}
+]</Var> 
+  <Out name="json array" /> 
+  <Loop name="item" source="json array">
+    <Out name="item::a" /> 
+  </Loop> 
+  <Loop name="x" numbers="10">
+    <Out name="x" /> 
+    <Loop name="y" numbers="10">
+      <Out name="y" level="debug" /> 
+      <Wait delay="100" /> 
+    </Loop> 
+  </Loop> 
+</Recipe> 

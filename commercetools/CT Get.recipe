@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="CT Get">
+	<If isNull="!ct_access_token">
+		<Task name="CT Authorization Token" /> 
+	</If> 
+	<Remove name="$var{response}" /> 
+	<Get name="response-body" url="$var{url}" auth="Bearer $var{!ct_access_token}" /> 
+	<Var name="statusCode" source="response-body::statusCode" /> 
+	<Out name="statusCode" level="debug" /> 
+	<If isNotNull="statusCode">
+		<Else>
+			<Var name="$var{response}" source="response-body" /> 
+		</Else> 
+		<If name="statusCode" equals="401">
+			<Task name="CT Authorization Token" /> 
+			<Get name="response-body" url="$var{url}" auth="Bearer $var{!ct_access_token}" /> 
+			<Var name="statusCode" source="response-body::statusCode" /> 
+			<Out name="statusCode" level="debug" /> 
+			<If isNotNull="statusCode">
+				<Else>
+					<Var name="$var{response}" source="response-body" /> 
+				</Else> 
+				<If name="statusCode" equals="401">
+					<CheckValue actual="$var{statusCode}" expected="200" mode="normal" condition="equal" onErrorMsg="Response Status: $var{statusCode}" /> 
+				</If> 
+			</If> 
+		</If> 
+	</If> 
+	<Out name="response-body" /> 
+</Recipe> 

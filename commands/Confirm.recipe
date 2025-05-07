@@ -1,0 +1,8 @@
+<Recipe name="Confirm">
+  <Out>Hello!</Out> 
+  <Confirm name="My Confirmation" message="I want to Confirm by a variable">
+    <Var name="My Confirmation" value="yes" /> 
+  </Confirm> 
+  <Confirm name="My Confirmation" message="Do you want to continue the recipe?" /> 
+  <Out>Confirmed</Out> 
+</Recipe> 

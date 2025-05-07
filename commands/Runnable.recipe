@@ -1,0 +1,9 @@
+<Recipe name="Runnable">
+  <Runnable name="myRun" threadLog="true">
+    <Loop name="i" numbers="10">
+      <Out>Thread: $var{Thread_Id}, Iteration: $var{i}</Out> 
+      <Wait delay="100" /> 
+    </Loop> 
+  </Runnable> 
+  <Threads name="myRun" threadLog="true" numbers="10" multi="true" mode="wait" /> 
+</Recipe> 

@@ -1,0 +1,11 @@
+<Recipe name="Threads">
+  <Threads numbers="10" multi="true">
+    <Finally>
+      <Out>Thread $var{THREAD_ID} stoped.</Out> 
+    </Finally> 
+    <Out>Thread $var{THREAD_ID} started ...</Out> 
+    <Wait delay="10000" /> 
+    <Out>Thread $var{THREAD_ID} done.</Out> 
+  </Threads> 
+  <Out>Hello</Out> 
+</Recipe> 

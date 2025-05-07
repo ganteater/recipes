@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Recipe name="While">
+	<Var name="index" value="0" /> 
+	<While name="index" notEqual="20">
+		<Out name="index" /> 
+		<Inc name="index" /> 
+	</While> 
+	<Var name="index" value="0" /> 
+	<While name="index" notEqual="100">
+		<Out name="index" /> 
+		<Inc name="index" /> 
+		<If expression="$var{index} &gt; 10">
+			<Break /> 
+		</If> 
+	</While> 
+</Recipe> 

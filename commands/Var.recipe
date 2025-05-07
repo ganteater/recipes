@@ -1,0 +1,77 @@
+<Recipe name="Var">
+  <Var name="My Big Text" type="text" init="console">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Phasellus quis vulputate nunc, sed volutpat velit. Nullam scelerisque 
+porta dolor sit amet varius. Praesent a blandit tortor, quis egestas 
+quam. Nulla congue venenatis lectus at luctus. Aliquam aliquam consequat 
+nisi, pulvinar posuere ligula aliquet sed. Cras lobortis ultrices nunc ac 
+tempus. Aenean eu augue quis dolor lobortis semper. Aenean nisi quam, 
+sodales nec orci nec, rutrum sodales leo. Pellentesque at rhoncus velit, 
+sed venenatis tortor. Mauris convallis accumsan vulputate. Praesent auctor 
+eleifend lacus ac dignissim. Donec vitae semper felis. Maecenas volutpat eget 
+lectus vitae lacinia. Pellentesque elit orci, faucibus vitae sodales in, luctus 
+eu nibh. Nulla vel molestie augue. Phasellus vitae massa eget tortor pellentesque 
+convallis ut ut est.
+
+Ut pharetra et eros ut interdum. Donec nec nulla nec nisl porta malesuada nec ac 
+magna. Sed ut erat ac tellus laoreet consequat. Curabitur at dui a nisl aliquam 
+tristique a vel turpis. Sed tincidunt massa vel leo vestibulum, vel porta sem 
+euismod. Ut laoreet sed justo vel posuere. Integer consequat tincidunt quam in 
+pulvinar. Sed accumsan purus quis risus faucibus, vitae dictum justo tristique. 
+Aliquam eget felis congue, volutpat velit non, euismod lacus. Quisque suscipit 
+iaculis quam, vel volutpat justo luctus non. Aliquam consequat convallis faucibus. 
+Cras laoreet, enim a elementum cursus, augue arcu gravida felis, ut ornare nibh 
+nunc nec enim. In egestas egestas maximus. Phasellus bibendum id nisi sit amet 
+cursus. Proin quis tortor faucibus, mattis est eu, tempor tellus.</Var> 
+  <Out name="My Big Text" /> 
+  <Var name="a" init="console">
+    <item>Item #1</item> 
+    <item>Item #2</item> 
+    <item>Item #3</item> 
+    <item>Item #4</item> 
+    <item>Item #5</item> 
+  </Var> 
+  <Out name="a" /> 
+  <Remove name="Importent Input" history="true" /> 
+  <Var name="Importent Input" description="This input should be displayed every time" init="mandatory" /> 
+  <Out name="Importent Input" /> 
+  <Var name="QATXXX" type="map">
+    <item key="host">qatXXX.xx.xxx</item> 
+    <item key="manager">QATXXX</item> 
+    <item key="channel">AZURE.1.SVRCONN</item> 
+    <item key="port">1414</item> 
+    <item key="transportType">1</item> 
+  </Var> 
+  <Var name="QAT265::username" init="console" /> 
+  <Var name="QAT265::password" init="mandatory" type="password" description="AOM MQ Password" /> 
+  <Out name="QAT265" /> 
+  <Var name="x" description="This is my X" init="mandatory" /> 
+  <Out name="x" /> 
+  <Var name="x" value="10000300002" /> 
+  <Var name="x" init="mandatory" /> 
+  <Var name="y" source="x" start="1" end="3" /> 
+  <Out name="y" /> 
+  <Var name="array" description="This is my A">
+    <item>Item #1</item> 
+    <item>Item #2</item> 
+    <item>Item #3</item> 
+    <item>Item #4</item> 
+    <item>Item #5</item> 
+  </Var> 
+  <Out name="array" /> 
+  <Out name="a" /> 
+  <Remove name="a" /> 
+  <Out name="a" /> 
+  <Var name="a" type="array" file="data/array.data" /> 
+  <Out name="a" /> 
+  <Var name="file" type="path" init="console" description="This is my file" /> 
+  <Out name="file" /> 
+  <Var name="my json var" type="json">{
+a: { b: "c"};
+d: "e"
+}</Var> 
+  <Remove name="my json var::a::b" /> 
+  <Out name="my json var::a::b" /> 
+  <Var name="my json var::a::b" init="mandatory" /> 
+  <Out name="my json var::a::b" /> 
+  <Out name="my json var::d" /> 
+</Recipe> 

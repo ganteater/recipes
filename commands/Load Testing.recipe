@@ -1,0 +1,19 @@
+<Recipe name="Load Testing">
+  <Table name="Performance Test Settings">
+    <var name="Iteration Count" default="20" /> 
+    <var name="Threads Numbers" default="1" /> 
+    <var name="URL" value="https://duckduckgo.com" /> 
+  </Table> 
+  <Frame frameId="duration" reuse="false" type="XYLineChart" title="$var{URL}" xAxisLabel="Request" yAxisLabel="Duration, ms" /> 
+  <Threads numbers="$var{Threads Numbers}" multi="true" mode="wait">
+    <Loop name="id" numbers="$var{Iteration Count}">
+      <Task>
+        <Time name="duration" action="duration">
+          <Request method="get" request="request" response="response_$var{thread_id}" host="$var{URL}" /> 
+        </Time> 
+        <Out name="response_$var{thread_id}::body" type="html" /> 
+        <Out frameId="duration" series="$var{thread_id}" x="$var{id}">$var{duration}</Out> 
+      </Task> 
+    </Loop> 
+  </Threads> 
+</Recipe> 
